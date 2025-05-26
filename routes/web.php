@@ -15,8 +15,12 @@ Route::get('/', function(){
 });
 
 Route::get('/tasks', function () {
+    $tasks = Task::orderBy('completed')
+        ->latest()
+        ->paginate();
+
     return view('index', [
-        'tasks' => Task::latest()->paginate() 
+        'tasks' => $tasks
     ]);
 })->name('tasks.index');
 
